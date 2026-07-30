@@ -1,6 +1,5 @@
 import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import { useState } from "react";
-// import { use } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { use } from "react";
 import { AuthenticationContextAPI } from "../../../../Context-API/AuthenticationContextAPI";
