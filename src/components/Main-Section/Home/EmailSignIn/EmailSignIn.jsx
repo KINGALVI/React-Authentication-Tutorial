@@ -1,4 +1,8 @@
-import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+} from "firebase/auth";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useContext } from "react";
@@ -13,107 +17,106 @@ const EmailSignIn = () => {
   const [EmailSigninUserInfo, setEmailSigninUserInfo] = useState([]);
 
   // How to show Sign in success massage .
-  const [EmailSigninSuccessMassage, setEmailSigninSuccessMassage] = useState('');
+  const [EmailSigninSuccessMassage, setEmailSigninSuccessMassage] =
+    useState("");
 
   // How to show Email exist massage .
-  const [EmailSigninExistsMassage, setEmailSigninExistsMassage] = useState('');
+  const [EmailSigninExistsMassage, setEmailSigninExistsMassage] = useState("");
 
   // How to show Password conditional massage .
-  const [PasswordRequirementsMassage, setPasswordRequirementsMassage] = useState('');
+  const [PasswordRequirementsMassage, setPasswordRequirementsMassage] =
+    useState("");
 
   // how to make a cheack box Requered in Authentiocation System .
-  const [CheckBoxRequeredMassage, setCheckBoxRequeredMassage] = useState('');
+  const [CheckBoxRequeredMassage, setCheckBoxRequeredMassage] = useState("");
 
-//   How to use Firebase Authentication system for Email sign in .
-  const handelEmailSignInAuthentication = e => {
+  //   How to use Firebase Authentication system for Email sign in .
+  const handelEmailSignInAuthentication = (e) => {
+    // Stop the Form from refreshing the website when the form submit button is clicked .
+    e.preventDefault();
 
-      // Stop the Form from refreshing the website when the form submit button is clicked .
-      e.preventDefault();
+    // Get the Email value from the email input field .
+    const Email = e.target.Email.value;
 
-      // Get the Email value from the email input field .
-      const Email = e.target.Email.value;
+    // Get the Password value from the password input field .
+    const Password = e.target.Password.value;
 
-      // Get the Password value from the password input field .
-      const Password = e.target.Password.value;
+    // Get the Name value form the password input field .
+    const Name = e.target.Name.value;
 
-      // Get the Name value form the password input field .
-      const Name = e.target.Name.value;
+    // Get the Photo value from the Photo URL input field .
+    const PhotoURL = e.target.Photo.value;
 
-      // Get the Photo value from the Photo URL input field .
-      const PhotoURL = e.target.Photo.value
-
-      // how to make a cheack box requir in Authentiocation System .
-      const CheckBox = e.target.CheckBox.checked;
-      console.log(CheckBox);
-      // setCheckBoxRequerMassage(!CheckBox);
-      if (!CheckBox) {
-          setCheckBoxRequeredMassage("Please Accept Our Terms & Condition");
-          return;
-      }
-      else {
-          // Clear the existing State when the form button is clicked .
-          setCheckBoxRequeredMassage('');
-      }
-
+    // how to make a cheack box requir in Authentiocation System .
+    const CheckBox = e.target.CheckBox.checked;
+    console.log(CheckBox);
+    // setCheckBoxRequerMassage(!CheckBox);
+    if (!CheckBox) {
+      setCheckBoxRequeredMassage("Please Accept Our Terms & Condition");
+      return;
+    } else {
       // Clear the existing State when the form button is clicked .
-      setEmailSigninSuccessMassage('');
-      setEmailSigninExistsMassage('');
-      setPasswordRequirementsMassage('');
+      setCheckBoxRequeredMassage("");
+    }
 
-      // Conditional check of Password requirements .
-      const PasswordRegExp = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
-      if (PasswordRegExp.test(Password) === false) {
-          setPasswordRequirementsMassage(
-              "Password must be at least 8 characters long and include uppercase, lowercase, and a number."
-          );
-          return
-      }
+    // Clear the existing State when the form button is clicked .
+    setEmailSigninSuccessMassage("");
+    setEmailSigninExistsMassage("");
+    setPasswordRequirementsMassage("");
+    event.target.reset();
 
-      // Firebase Email sign in function .
-      createUserWithEmailAndPassword(auth, Email, Password)
-          .then(Result => {
-              const UserData = Result.user;
-              setEmailSigninUserInfo(UserData);
+    // Conditional check of Password requirements .
+    const PasswordRegExp = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+    if (PasswordRegExp.test(Password) === false) {
+      setPasswordRequirementsMassage(
+        "Password must be at least 8 characters long and include uppercase, lowercase, and a number.",
+      );
+      return;
+    }
 
-              // how to add an Email Verification functionality using Firebase Authentication .
-              sendEmailVerification(UserData)
-                  .then(() => {
-                      // How to show Sign in success massage .
-                      setEmailSigninSuccessMassage('Sign in successfull !! We have Send you an Email Verification link , Pleasy varify your Eamil !!');
-                  })
-                  .catch(() => {
-                      // send a Error massage .
-                  })
+    // Firebase Email sign in function .
+    createUserWithEmailAndPassword(auth, Email, Password)
+      .then((Result) => {
+        const UserData = Result.user;
+        setEmailSigninUserInfo(UserData);
 
-              // how to add or update Profile using Firebase Authentication .
-              const Profile = {
-                  displayName: Name,
-                  photoURL: PhotoURL
-              }
-              updateProfile(UserData, Profile)
-                  .then(() => {
-                      // send a Success massage .
-                  })
-                  .catch(() => {
-                      // send a Error massage .
-                  })
-
-              console.log('Sign in data : ', UserData);
+        // how to add an Email Verification functionality using Firebase Authentication .
+        sendEmailVerification(UserData)
+          .then(() => {
+            // How to show Sign in success massage .
+            setEmailSigninSuccessMassage(
+              "Sign in successfull !! We have Send you an Email Verification link , Pleasy varify your Eamil !!",
+            );
           })
+          .catch(() => {
+            // send a Error massage .
+          });
 
-          .catch(Error => {
-              console.log(Error.message);
-
-              // How to show Firebase error message .
-              setEmailSigninExistsMassage('This email already exists !!');
+        // how to add or update Profile using Firebase Authentication .
+        const Profile = {
+          displayName: Name,
+          photoURL: PhotoURL,
+        };
+        updateProfile(UserData, Profile)
+          .then(() => {
+            // send a Success massage .
           })
+          .catch(() => {
+            // send a Error massage .
+          });
 
-      console.log('Sign in Email : ', Email, 'Sign in Password : ', Password);
-  }
+        console.log("Sign in data : ", UserData);
+      })
 
+      .catch((Error) => {
+        console.log(Error.message);
 
+        // How to show Firebase error message .
+        setEmailSigninExistsMassage("This email already exists !!");
+      });
 
-
+    console.log("Sign in Email : ", Email, "Sign in Password : ", Password);
+  };
 
   // How to use Firebase Authentication system for Email sign in using Contex API.
 
@@ -127,15 +130,13 @@ const EmailSignIn = () => {
     const Password = e.target.Password.value;
 
     CreateUser(Email, Password)
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log(result);
+        e.target.reset();
+      })
       .catch((error) => console.log(error));
   };
 
-
-
-
-
-  
   return (
     <>
       {/* How to use Firebase Authentication system for Email sign in . */}
@@ -206,17 +207,13 @@ const EmailSignIn = () => {
           {
             /* if */ CheckBoxRequeredMassage ? (
               <p className="text-red-500">{CheckBoxRequeredMassage}</p>
-            )
-             : /* else if */ PasswordRequirementsMassage ? (
+            ) : /* else if */ PasswordRequirementsMassage ? (
               <p className="text-red-500">{PasswordRequirementsMassage}</p>
-            )
-            : /* else if */ EmailSigninSuccessMassage ? (
+            ) : /* else if */ EmailSigninSuccessMassage ? (
               <h1 className="text-2xl text-green-700">
                 {EmailSigninSuccessMassage}
               </h1>
-            )
-            :
-            (
+            ) : (
               /* else */ EmailSigninExistsMassage && (
                 <h1 className="text-2xl text-red-500">
                   {EmailSigninExistsMassage}

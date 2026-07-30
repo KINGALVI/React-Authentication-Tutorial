@@ -1,4 +1,7 @@
-import { sendPasswordResetEmail, signInWithEmailAndPassword,} from "firebase/auth";
+import {
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { useRef, useState } from "react";
 import { useContext } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -9,57 +12,51 @@ const EmailLogIn = () => {
   //How to add show password and hide password in Firebase Authentiocation system .
   const [ShowPassword, setShowPassword] = useState(false);
 
-    // How to show the user infomation using Firebase Authentication system .
-    const [EmailLoginUserInfo, setEmailLoginUserInfo] = useState([]);
+  // How to show the user infomation using Firebase Authentication system .
+  const [EmailLoginUserInfo, setEmailLoginUserInfo] = useState([]);
 
-    // how to send an Error massage in log in .
-    const [CheackError, setCheackError] = useState("");
+  // how to send an Error massage in log in .
+  const [CheackError, setCheackError] = useState("");
 
   // how to send an Success massage in log in .
   const [CheackSuccess, setCheackSuccess] = useState("");
 
   // How to use Firebase Authentication system for Email log in .
-  const handelEmailLogInAuthentication = e => {
+  const handelEmailLogInAuthentication = (e) => {
+    // Stop the Form from refreshing the website when the button is clicked .
+    e.preventDefault();
 
-      // Stop the Form from refreshing the website when the button is clicked .
-      e.preventDefault();
+    // Get the Email value from the email input field .
+    const Email = e.target.Email.value;
 
-      // Get the Email value from the email input field .
-      const Email = e.target.Email.value;
+    // Get the Password value from the password input field .
+    const Password = e.target.Password.value;
 
-      // Get the Password value from the password input field .
-      const Password = e.target.Password.value;
+    // Clear the existing State when the form button is clicked .
+    setCheackError("");
+    setCheackSuccess("");
+    event.target.reset();
 
-      // Clear the existing State when the form button is clicked .
-      setCheackError('');
-      setCheackSuccess('');
+    // Firebase Email log in function .
+    signInWithEmailAndPassword(auth, Email, Password)
+      .then((Result) => {
+        const UserData = Result.user;
+        setEmailLoginUserInfo(UserData);
+        console.log("Log in data : ", UserData);
+        // how to cheack if the User was Varifyed .
+        if (!UserData.emailVerified) {
+          setCheackError("Please varify you Email !!");
+        } else {
+          setCheackSuccess("You have successfuly Log in !!");
+        }
+      })
+      .catch((Error) => {
+        console.log(Error.message);
+        setCheackError("Wrong Email or Password !!");
+      });
 
-      // Firebase Email log in function .
-      signInWithEmailAndPassword(auth, Email, Password)
-          .then(Result => {
-              const UserData = Result.user;
-              setEmailLoginUserInfo(UserData);
-              console.log('Log in data : ', UserData);
-
-              // how to cheack if the User was Varifyed .
-              if (!UserData.emailVerified) {
-                  setCheackError('Please varify you Email !!');
-              }
-              else {
-                  setCheackSuccess('You have successfuly Log in !!');
-              }
-
-          })
-          .catch(Error => {
-              console.log(Error.message);
-              setCheackError('Wrong Email or Password !!');
-          })
-
-      console.log('Log in Email : ', Email, 'Log in Password : ', Password);
-  }
-
-
-
+    console.log("Log in Email : ", Email, "Log in Password : ", Password);
+  };
 
   // How to use Firebase Authentication system for Email sign in using Contex API.
 
@@ -73,13 +70,12 @@ const EmailLogIn = () => {
     const Password = e.target.Password.value;
 
     signInUser(Email, Password)
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log(result);
+        e.target.reset();
+      })
       .catch((error) => console.log(error));
   };
-
-
-
-
 
   const getEmail = useRef();
 

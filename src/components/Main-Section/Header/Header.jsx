@@ -3,8 +3,18 @@ import { NavLink } from "react-router-dom";
 import { AuthenticationContextAPI } from "../../../Context-API/AuthenticationContextAPI";
 
 const Header = () => {
-  const { user } = useContext(AuthenticationContextAPI);
-  console.log(user);
+  const { user, signOutUser } = useContext(AuthenticationContextAPI);
+
+  const handelSignOutUser = () => {
+    signOutUser()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="navbar bg-base-100 shadow-md sticky top-0 z-50">
       {/* Left side */}
@@ -60,6 +70,36 @@ const Header = () => {
                 Log in
               </NavLink>
             </li>
+
+            {/* how to show user data if user is log in */}
+            {user && (
+              <>
+                <li>
+                  <NavLink
+                    to=""
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-primary font-semibold"
+                        : "hover:text-primary"
+                    }
+                  >
+                    Orders
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to=""
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-primary font-semibold"
+                        : "hover:text-primary"
+                    }
+                  >
+                    Profile
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
         <a className="btn btn-ghost normal-case text-xl font-bold text-primary">
@@ -106,13 +146,46 @@ const Header = () => {
               Log in
             </NavLink>
           </li>
+
+          {/* how to show user data if user is log in */}
+          {user && (
+            <>
+              <li>
+                <NavLink
+                  to="/Orders"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "border-b-2 border-primary text-primary font-semibold"
+                      : "hover:text-primary transition-colors"
+                  }
+                >
+                  Orders
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/Profile"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "border-b-2 border-primary text-primary font-semibold"
+                      : "hover:text-primary transition-colors"
+                  }
+                >
+                  Profile
+                </NavLink>
+              </li>
+            </>
+          )}
         </ul>
       </div>
 
       {/* Right side */}
       <div className="navbar-end">
         {user ? (
-          <a className="btn btn-primary hover:scale-105 transition-transform">
+          <a
+            onClick={handelSignOutUser}
+            className="btn btn-primary hover:scale-105 transition-transform"
+          >
             Sign out
           </a>
         ) : (
