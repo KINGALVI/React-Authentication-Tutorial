@@ -1,14 +1,20 @@
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { AuthenticationContextAPI } from "./AuthenticationContextAPI.JSX";
+import { auth } from "../components/Firebase-Authentication/FirebaseAuthentication";
 
-const AuthenticationContextApiProvider = ({children}) => {
+const AuthenticationContextApiProvider = ({ children }) => {
 
-const value = {}
+  const CreateUser = (Email, Password) => {
+    return createUserWithEmailAndPassword(auth, Email, Password);
+  };
 
-    return (
-        <AuthenticationContextAPI.Provider value={value}>
-            {children}
-        </AuthenticationContextAPI.Provider>
-    );
+  const value = {CreateUser};
+
+  return (
+    <AuthenticationContextAPI.Provider value={value}>
+      {children}
+    </AuthenticationContextAPI.Provider>
+  );
 };
 
 export default AuthenticationContextApiProvider;
