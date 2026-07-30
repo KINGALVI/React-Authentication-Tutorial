@@ -27,7 +27,7 @@ const EmailSignIn = () => {
     // How to use Firebase Authentication system for Email sign in .
     const handelEmailSignInAuthentication = e => {
 
-        // Stop the Form from refreshing the website when the button is clicked .
+        // Stop the Form from refreshing the website when the form submit button is clicked .
         e.preventDefault();
 
         // Get the Email value from the email input field .
