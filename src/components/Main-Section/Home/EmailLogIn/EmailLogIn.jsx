@@ -1,5 +1,6 @@
 import { sendPasswordResetEmail, signInWithEmailAndPassword,} from "firebase/auth";
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { useContext } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { auth } from "../../../Firebase-Authentication/FirebaseAuthentication";
 import { AuthenticationContextAPI } from "../../../../Context-API/AuthenticationContextAPI";
@@ -62,7 +63,7 @@ const EmailLogIn = () => {
 
   // How to use Firebase Authentication system for Email sign in using Contex API.
 
-  // We can either "use" or "useContext" to use the ContextAPI data.
+  // We can use "useContext" to use the ContextAPI data.
   const { signInUser } = useContext(AuthenticationContextAPI);
   console.log(signInUser);
 

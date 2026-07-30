@@ -1,18 +1,31 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword} from "firebase/auth";
 import { AuthenticationContextAPI } from "./AuthenticationContextAPI.JSX";
 import { auth } from "../components/Firebase-Authentication/FirebaseAuthentication";
+import { useEffect, useState } from "react";
 
 const AuthenticationContextApiProvider = ({ children }) => {
-
+  // How to use Firebase Authentication system for Email sign in using Contex API.
   const CreateUser = (Email, Password) => {
     return createUserWithEmailAndPassword(auth, Email, Password);
   };
 
-  const signInUser =(Email,Password)=>{
-    return signInWithEmailAndPassword(auth, Email, Password)
-  }
+  // How to use Firebase Authentication system for Email log in using Contex API.
+  const signInUser = (Email, Password) => {
+    return signInWithEmailAndPassword(auth, Email, Password);
+  };
 
-  const value = {CreateUser, signInUser};
+  //How to get currrent log in user information in Firebase Authentication
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      console.log("User Found", currentUser);
+    });
+
+    return () => unsubscribe;
+  }, []);
+
+  const value = { CreateUser, signInUser, user };
 
   return (
     <AuthenticationContextAPI.Provider value={value}>

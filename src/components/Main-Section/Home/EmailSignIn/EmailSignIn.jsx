@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { use } from "react";
+import { useContext } from "react";
 import { AuthenticationContextAPI } from "../../../../Context-API/AuthenticationContextAPI";
 import { auth } from "../../../Firebase-Authentication/FirebaseAuthentication";
 
@@ -117,8 +117,8 @@ const EmailSignIn = () => {
 
   // How to use Firebase Authentication system for Email sign in using Contex API.
 
-  // We can either "use" or "useContext" to use the ContextAPI data.
-  const { CreateUser } = use(AuthenticationContextAPI);
+  // We can use "useContext" to use the ContextAPI data.
+  const { CreateUser } = useContext(AuthenticationContextAPI);
   console.log(CreateUser);
 
   const handelEmailSignInAuthentication = (e) => {
@@ -210,12 +210,13 @@ const EmailSignIn = () => {
              : /* else if */ PasswordRequirementsMassage ? (
               <p className="text-red-500">{PasswordRequirementsMassage}</p>
             )
-             : /* else if */ EmailSigninSuccessMassage ? (
+            : /* else if */ EmailSigninSuccessMassage ? (
               <h1 className="text-2xl text-green-700">
                 {EmailSigninSuccessMassage}
               </h1>
             )
-             : (
+            :
+            (
               /* else */ EmailSigninExistsMassage && (
                 <h1 className="text-2xl text-red-500">
                   {EmailSigninExistsMassage}
