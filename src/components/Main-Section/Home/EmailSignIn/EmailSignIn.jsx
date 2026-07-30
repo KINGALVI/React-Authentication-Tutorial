@@ -66,6 +66,7 @@ const EmailSignIn = () => {
           setPasswordRequirementsMassage(
               "Password must be at least 8 characters long and include uppercase, lowercase, and a number."
           );
+          return
       }
 
       // Firebase Email sign in function .
@@ -115,8 +116,11 @@ const EmailSignIn = () => {
 
 
   // How to use Firebase Authentication system for Email sign in using Contex API.
+
+  // We can either "use" or "useContext" to use the ContextAPI data.
   const { CreateUser } = use(AuthenticationContextAPI);
   console.log(CreateUser);
+
   const handelEmailSignInAuthentication = (e) => {
     e.preventDefault();
     const Email = e.target.Email.value;
@@ -202,13 +206,16 @@ const EmailSignIn = () => {
           {
             /* if */ CheckBoxRequeredMassage ? (
               <p className="text-red-500">{CheckBoxRequeredMassage}</p>
-            ) : /* else if */ PasswordRequirementsMassage ? (
+            )
+             : /* else if */ PasswordRequirementsMassage ? (
               <p className="text-red-500">{PasswordRequirementsMassage}</p>
-            ) : /* else if */ EmailSigninSuccessMassage ? (
+            )
+             : /* else if */ EmailSigninSuccessMassage ? (
               <h1 className="text-2xl text-green-700">
                 {EmailSigninSuccessMassage}
               </h1>
-            ) : (
+            )
+             : (
               /* else */ EmailSigninExistsMassage && (
                 <h1 className="text-2xl text-red-500">
                   {EmailSigninExistsMassage}
