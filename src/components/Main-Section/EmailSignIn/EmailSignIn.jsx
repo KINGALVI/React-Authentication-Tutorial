@@ -198,7 +198,28 @@ const EmailSignIn = () => {
                   Accept Terms & Conditions
                 </label>
 
-                <button className="btn btn-neutral mt-4">Sign in</button>
+                {/* Email */}
+                <button className="btn bg-white text-black border-[#e5e5e5]">
+                  <svg
+                    aria-label="Email icon"
+                    width="16"
+                    height="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                  >
+                    <g
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                      strokeWidth="2"
+                      fill="none"
+                      stroke="black"
+                    >
+                      <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                    </g>
+                  </svg>
+                  Sign in with Email
+                </button>
               </form>
             </div>
           </div>
@@ -207,16 +228,13 @@ const EmailSignIn = () => {
           {
             /* if */ CheckBoxRequeredMassage ? (
               <p className="text-red-500">{CheckBoxRequeredMassage}</p>
-            ) 
-            : /* else if */ PasswordRequirementsMassage ? (
+            ) : /* else if */ PasswordRequirementsMassage ? (
               <p className="text-red-500">{PasswordRequirementsMassage}</p>
-            ) 
-            : /* else if */ EmailSigninSuccessMassage ? (
+            ) : /* else if */ EmailSigninSuccessMassage ? (
               <h1 className="text-2xl text-green-700">
                 {EmailSigninSuccessMassage}
               </h1>
-            ) 
-            : (
+            ) : (
               /* else */ EmailSigninExistsMassage && (
                 <h1 className="text-2xl text-red-500">
                   {EmailSigninExistsMassage}
