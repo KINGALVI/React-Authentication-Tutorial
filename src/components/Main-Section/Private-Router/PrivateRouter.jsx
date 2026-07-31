@@ -5,12 +5,17 @@ import { AuthenticationContextAPI } from "../../../Context-API/AuthenticationCon
 import { Navigate } from "react-router-dom";
 
 const PrivateRouter = ({ children }) => {
-  const { user } = useContext(AuthenticationContextAPI);
+  const { user, loding } = useContext(AuthenticationContextAPI);
+
+  // how to use loding state to keep the the private route open.
+  if (loding) {
+    return <>loding...</>;
+  }
+
   if (user) {
     return children;
-  } 
-  else {
-    return <Navigate to="/Email-Log-In"/>
+  } else {
+    return <Navigate to="/Email-Log-In" />;
   }
 };
 

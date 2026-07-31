@@ -70,6 +70,16 @@ const Header = () => {
                 Log in
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/DashBoard"
+                className={({ isActive }) =>
+                  isActive ? "text-primary font-semibold" : "hover:text-primary"
+                }
+              >
+                DashBoard
+              </NavLink>
+            </li>
 
             {/* how to show user data if user is log in */}
             {user && (
@@ -144,6 +154,16 @@ const Header = () => {
               }
             >
               Log in
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/DashBoard"
+              className={({ isActive }) =>
+                isActive ? "text-primary font-semibold" : "hover:text-primary"
+              }
+            >
+              DashBoard
             </NavLink>
           </li>
 

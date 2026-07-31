@@ -7,6 +7,7 @@ import EmailLogIn from "../components/Main-Section/EmailLogIn/EmailLogIn";
 import Profile from "../components/Main-Section/Profile/Profile";
 import Orders from "../components/Main-Section/Orders/Orders";
 import PrivateRouter from "../components/Main-Section/Private-Router/PrivateRouter";
+import DashBoard from "../components/Main-Section/DashBoard/DashBoard";
 
 const React_Router = () => {
   const router = createBrowserRouter([
@@ -48,7 +49,14 @@ const React_Router = () => {
             </PrivateRouter>
           ),
         },
-
+        {
+          path: "/DashBoard",
+          element: (
+            <PrivateRouter>
+              <DashBoard />
+            </PrivateRouter>
+          ),
+        },
       ],
     },
   ]);
