@@ -6,8 +6,8 @@ import {
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useContext } from "react";
-import { AuthenticationContextAPI } from "../../../../Context-API/AuthenticationContextAPI";
-import { auth } from "../../../Firebase-Authentication/FirebaseAuthentication";
+import { AuthenticationContextAPI } from "../../../Context-API/AuthenticationContextAPI";
+import { auth } from "../../Firebase-Authentication/FirebaseAuthentication";
 
 const EmailSignIn = () => {
   // //How to add show password and hide password in Firebase Authentiocation system .
@@ -179,7 +179,7 @@ const EmailSignIn = () => {
                 <label className="label">Password</label>
                 <div className="flex">
                   <input
-                    type={ShowPassword ? "text" : "password"}
+                    type="password"
                     className="input"
                     placeholder="Password"
                     name="Password"
@@ -207,13 +207,16 @@ const EmailSignIn = () => {
           {
             /* if */ CheckBoxRequeredMassage ? (
               <p className="text-red-500">{CheckBoxRequeredMassage}</p>
-            ) : /* else if */ PasswordRequirementsMassage ? (
+            ) 
+            : /* else if */ PasswordRequirementsMassage ? (
               <p className="text-red-500">{PasswordRequirementsMassage}</p>
-            ) : /* else if */ EmailSigninSuccessMassage ? (
+            ) 
+            : /* else if */ EmailSigninSuccessMassage ? (
               <h1 className="text-2xl text-green-700">
                 {EmailSigninSuccessMassage}
               </h1>
-            ) : (
+            ) 
+            : (
               /* else */ EmailSigninExistsMassage && (
                 <h1 className="text-2xl text-red-500">
                   {EmailSigninExistsMassage}

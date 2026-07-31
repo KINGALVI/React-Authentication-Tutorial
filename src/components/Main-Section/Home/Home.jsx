@@ -1,4 +1,4 @@
-import GoggleAuthentication from "./GoggleAuthentication/GoggleAuthentication";
+import GoggleAuthentication from "../GoggleAuthentication/GoggleAuthentication";
 
 const Home = () => {
 

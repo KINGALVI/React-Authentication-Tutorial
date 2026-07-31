@@ -2,10 +2,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorHandel from "../components/HandelError/ErrorHandel";
 import MainSection from "../components/Main-Section/MainSection";
 import Home from "../components/Main-Section/Home/Home";
-import EmailSignIn from "../components/Main-Section/Home/EmailSignIn/EmailSignIn";
-import EmailLogIn from "../components/Main-Section/Home/EmailLogIn/EmailLogIn";
-import Profile from "../components/Main-Section/Home/Profile/Profile";
-import Orders from "../components/Main-Section/Home/Orders/Orders";
+import EmailSignIn from "../components/Main-Section/EmailSignIn/EmailSignIn";
+import EmailLogIn from "../components/Main-Section/EmailLogIn/EmailLogIn";
+import Profile from "../components/Main-Section/Profile/Profile";
+import Orders from "../components/Main-Section/Orders/Orders";
 import PrivateRouter from "../components/Main-Section/Private-Router/PrivateRouter";
 
 const React_Router = () => {
@@ -48,7 +48,7 @@ const React_Router = () => {
             </PrivateRouter>
           ),
         },
-        
+
       ],
     },
   ]);

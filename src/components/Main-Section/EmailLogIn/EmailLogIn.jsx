@@ -5,8 +5,8 @@ import {
 import { useRef, useState } from "react";
 import { useContext } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { auth } from "../../../Firebase-Authentication/FirebaseAuthentication";
-import { AuthenticationContextAPI } from "../../../../Context-API/AuthenticationContextAPI";
+import { auth } from "../../Firebase-Authentication/FirebaseAuthentication";
+import { AuthenticationContextAPI } from "../../../Context-API/AuthenticationContextAPI";
 
 const EmailLogIn = () => {
   //How to add show password and hide password in Firebase Authentiocation system .
@@ -122,7 +122,7 @@ const EmailLogIn = () => {
                 <label className="label">Password</label>
                 <div className="flex">
                   <input
-                    type={ShowPassword ? "text" : "password"}
+                    type="password"
                     className="input"
                     placeholder="Password"
                     name="Password"
